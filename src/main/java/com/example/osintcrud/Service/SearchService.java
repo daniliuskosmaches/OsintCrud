@@ -43,10 +43,31 @@ public class SearchService {
     }
 
     private String detectType(String query) {
-        if (query.contains("@")) return "EMAIL";
-        if (query.matches("\\d+")) return "NUMBER_OR_PASPORT"; // уточним дальше
-        return "FULLNAME";
+        query = query.trim();
+
+        if (query.contains("@")) {
+            return "EMAIL";
+        }
+
+        if (query.matches("\\d{1,3}(\\.\\d{1,3}){3}")) {
+            return "IP";
+        }
+
+        if (query.matches("\\+?\\d{10,15}")) {
+            return "PHONE";
+        }
+
+        if (query.matches("[A-Z]{2}\\d{6}")) { // пример: AB123456
+            return "PASSPORT";
+        }
+
+        if (query.matches("[А-ЯЁA-Z][а-яёa-z]+\\s+[А-ЯЁA-Z][а-яёa-z]+")) {
+            return "FULLNAME";
+        }
+
+        return "USERNAME";
     }
+
 }
 
 
