@@ -15,6 +15,7 @@ import java.util.List;
 
 @Service
 public class SearchService {
+//внедрение модели
     private final UserRepository userRepository;
 
     public SearchService(UserRepository userRepository) {
@@ -22,7 +23,7 @@ public class SearchService {
     }
 
 
-
+//формируем запрос и отправляем в репозиторий орм
     public Map<String, Object> search(String query) {
         Map<String, Object> response = new HashMap<>();
         List<UserEntity> results;
@@ -34,14 +35,14 @@ public class SearchService {
             case "PASPORT" -> results = userRepository.findByPasport(Integer.parseInt(query));
             default -> throw new IllegalArgumentException("Неизвестный тип запроса");
         }
-
+//формируем ответ 
         response.put("status", "ok");
         response.put("query", query);
         response.put("result", results);
 
         return response;
     }
-
+//детектим тип запроса кто он и для чего он
     private String detectType(String query) {
         query = query.trim();
 
