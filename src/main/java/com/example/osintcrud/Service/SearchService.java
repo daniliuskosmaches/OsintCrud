@@ -1,11 +1,10 @@
 package com.example.osintcrud.Service;
 
+import com.example.osintcrud.dto.SearchResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
-
-
 
 
 import com.example.osintcrud.Model.*;
@@ -23,9 +22,17 @@ public class SearchService {
 
 
 
-    public Map<String, Object> search(String query) {
+    public SearchResponse search(String query) {
+        if (query == null || query.isBlank()) {
+            throw new IllegalArgumentException("Запрос не может быть пустым");
+        }
+        if (query.length() > 255) {
+            throw new IllegalArgumentException("запрос не должен быть гроромосздким");
+        }
+
         Map<String, Object> response = new HashMap<>();
         List<UserEntity> results;
+
 
         switch (detectType(query)) {
             case "EMAIL" -> results = userRepository.findByEmail(query);
@@ -35,11 +42,16 @@ public class SearchService {
             default -> throw new IllegalArgumentException("Неизвестный тип запроса");
         }
 
-        response.put("status", "ok");
-        response.put("query", query);
-        response.put("result", results);
+        SearchResponse ok = new SearchResponse(
+                "ok",                          // статус
+                query,                         // запрос
+                results,                       // результат поиска
+                "Найдено " + results.size() + " записей" // сообщение
+        );
+        return ok;
 
-        return response;
+
+
     }
 
     private String detectType(String query) {
