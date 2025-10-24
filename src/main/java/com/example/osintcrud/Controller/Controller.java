@@ -24,7 +24,7 @@ public class Controller {
 
     @PostMapping("/search")
 public ResponseEntity<?> search(@Valid @RequestBody SearchRequest request){
-        SearchResponse response = SearchService.search(request.getQuery());
+        SearchResponse response = (SearchResponse) SearchService.search(request.getQuery());
         return ResponseEntity.ok(response);
     }
 

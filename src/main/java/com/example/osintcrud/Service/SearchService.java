@@ -14,7 +14,7 @@ import com.example.osintcrud.Repository.*;
 import java.util.List;
 
 @Service
-public class SearchService {
+public class SearchService{
     private final UserRepository userRepository;
 
     public SearchService(UserRepository userRepository) {
@@ -23,7 +23,9 @@ public class SearchService {
 
 
 
-    public Map<String, Object> search(String query) {
+    public Map<String, Object> search(String query) throws IllegalArgumentException {
+        try {
+
         Map<String, Object> response = new HashMap<>();
         List<UserEntity> results;
 
@@ -39,7 +41,13 @@ public class SearchService {
         response.put("query", query);
         response.put("result", results);
 
+        return response; } catch (Exception e) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "error");
+        response.put("message", e.getMessage());
         return response;
+        }
+
     }
 
     private String detectType(String query) {
