@@ -1,34 +1,36 @@
 package com.example.osintcrud.dto;
 
+
+import lombok.AllArgsConstructor;
+
+
+@AllArgsConstructor
+@lombok.Data
 public class SearchResponse {
 
-    private String status;
-    private String query;
-    private Object result;
-    private String message;
 
-    public String getStatus(){
-        return status;
-    }
-    public void setStatus(String status){
-        this.status = status;
-    }
-    public String getQuery(){
-        return query;
-    }
-    public void setQuery(String query){
+
+    // СТАНДАРТНЫЕ ПОЛЯ ДЛЯ КОНТРАКТА API
+    private final String status; // "ok" или "error"
+    private final String query;  // Эхо исходного запроса
+    private final String message;
+    private final String response;// Сообщение об ошибке или дополнительная информация
+
+    public SearchResponse(String ok, String query, SearchResponse response, Object response1) {
+        this.status = ok;
         this.query = query;
+        this.message = response.getMessage();
+        this.response = response1.toString();
     }
-    public Object getResult(){
-        return result;
-    }
-    public void setResult(Object result){
-        this.result = result;
-    }
-    public String getMessage(){
-        return message;
-    }
-    public void setMessage(String message){
-        this.message = message;
-    }
-}
+
+    // ПОЛЕ ДЛЯ ДАННЫХ
+    // ИСПРАВЛЕНИЕ: Строгая типизация List<UserEntity>
+
+
+    // ------------------------------------------------------------------------
+    // Конструктор для создания объекта
+    // Используем final поля для создания иммутабельного (неизменяемого) объекта
+ }
+
+ // Сеттеры УДАЛЕНЫ, так как DTO должен быть иммутабельным (неизменяемым) после создания.
+    // Если вам нужны сеттеры, вы можете их вернуть, но иммутабельность — лучшая практика для DTO.
