@@ -6,12 +6,7 @@ public class SearchResponse {
     private String query;
     private Object result;
     private String message;
-    public SearchResponse(String status, String query, Object result, String message) {
-        this.status = status;
-        this.query = query;
-        this.result = result;
-        this.message = message;
-    }
+
     public String getStatus(){
         return status;
     }
