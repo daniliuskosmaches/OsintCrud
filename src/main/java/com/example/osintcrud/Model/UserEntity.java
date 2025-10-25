@@ -14,7 +14,7 @@ public class UserEntity {
     private String email;
     private int number;
     private int pasport;
-    private String query;
+
 
 
     public Long getId() {
