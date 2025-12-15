@@ -1,9 +1,7 @@
-package com.example.osintcrud.Model;
+package com.example.osintcrud.Model.User;
 
 
 import lombok.AllArgsConstructor;
-
-import java.util.List;
 
 // DTO для ответа клиенту
 @AllArgsConstructor

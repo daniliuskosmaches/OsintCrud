@@ -2,7 +2,7 @@ package com.example.osintcrud.Repository;
 
 
 
-import com.example.osintcrud.Model.UserEntity;
+import com.example.osintcrud.Entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

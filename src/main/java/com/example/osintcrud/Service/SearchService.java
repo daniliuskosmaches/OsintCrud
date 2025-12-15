@@ -2,11 +2,13 @@ package com.example.osintcrud.Service; // 1. ИСПРАВЛЕНИЕ: Удале�
 
 import org.springframework.stereotype.Service;
 
-import com.example.osintcrud.Model.UserEntity; // Импорт Model
+import java.util.ArrayList;
+import java.util.List;
+import com.example.osintcrud.Searchtype;
+import com.example.osintcrud.Entity.UserEntity; // Импорт Model
 import com.example.osintcrud.Repository.UserRepository; // Импорт Repository
 
-import java.util.List;
-import java.util.regex.Pattern; // Добавлен импорт для более чистого использования Pattern
+
 
 @Service
 public class SearchService { // Начало класса SearchService
@@ -24,9 +26,9 @@ public class SearchService { // Начало класса SearchService
      * Всю логику формирования ответа (Map) и ловли ошибок мы убрали в Controller/ExceptionHandler.
      */
     public List<UserEntity> search(String query) throws IllegalArgumentException {
+        Searchtype type = detectType(query);
+        List <SearchPattern> results;
 
-        // УДАЛЕН код создания Map<String, Object> response = new HashMap<>(); (Это нарушение SRP)
-        List<UserEntity> results;
 
         switch (detectType(query)) {
             // ВАЖНО: Если данные не число, NumberFormatException будет брошено Integer.parseInt.
@@ -49,46 +51,23 @@ public class SearchService { // Начало класса SearchService
     /**
      * Определяет тип запроса.
      */
-    private String detectType(String query) {
+
+
+
+    private Searchtype detectType(String query) {
         query = query.trim();
+        record SearchPattern(String regex, Searchtype pattern) {
+            List<SearchPattern> results = List.of(
+                    new SearchPattern("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$", Searchtype.FULLNAME
+                    ),
 
-        if (query.contains("@")) {
-            return "EMAIL";
+
+            new SearchPattern("\\d{1,3}(\\.\\d{1,3}){3}", Searchtype.IP),
+                    new SearchPattern("\\+?\\d{10,15}", Searchtype.PHONE),
+
+        );
         }
 
-        // Паттерн для IPv4
-        if (query.matches("\\d{1,3}(\\.\\d{1,3}){3}")) {
-            return "IP";
-        }
-
-        // Паттерн для номера телефона (+ или 10-15 цифр)
-        if (query.matches("\\+?\\d{10,15}")) {
-            return "PHONE";
-        }
-
-        // Паттерн для паспорта (например: AB123456)
-        // ВАЖНО: В вашем репозитории findByPasport принимает int.
-        // Если паспорт - это String (буквы+цифры), то нужно изменить Repository.
-        // Здесь мы предполагаем, что вы ищете по целым числам.
-        if (query.matches("\\d{6,10}")) { // Предполагаем 6-10 цифр как NUMBER или PASPORT
-            // Если в базе 'number' и 'pasport' - int, то запрос должен быть числом.
-            // Если это именно PASPORT (со строками), нужна другая логика.
-            try {
-                // Если парсится как число, то это NUMBER или PASPORT (в зависимости от длины)
-                Integer.parseInt(query);
-                return "PASPORT"; // Или NUMBER, если вы хотите их разделить по логике.
-            } catch (NumberFormatException e) {
-                // Не число, пропускаем
-            }
-        }
-
-        // Паттерн для ФИО (Слово с большой буквы, пробел, Слово с большой буквы)
-        if (query.matches("[А-ЯЁA-Z][а-яёa-z]+\\s+[А-ЯЁA-Z][а-яёa-z]+")) {
-            return "FULLNAME";
-        }
-
-        // Если не попадает ни в один тип, ищем как текст (или выбрасываем ошибку)
-        // В вашем коде он падал на этом, теперь бросим ошибку явно.
-        throw new IllegalArgumentException("Неизвестный тип запроса или не поддерживается.");
     }
+
 } // 3. ИСПРАВЛЕНИЕ: Это закрывающая скобка для класса SearchService

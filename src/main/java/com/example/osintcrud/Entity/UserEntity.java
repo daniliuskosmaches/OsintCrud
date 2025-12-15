@@ -1,4 +1,4 @@
-package com.example.osintcrud.Model;
+package com.example.osintcrud.Entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
