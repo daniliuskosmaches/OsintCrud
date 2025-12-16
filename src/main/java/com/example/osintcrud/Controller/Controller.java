@@ -2,6 +2,8 @@ package com.example.osintcrud.Controller;
 
 import com.example.osintcrud.Model.User.UserRequestDTO;
 import com.example.osintcrud.Model.User.UserResponseDTO;
+import com.example.osintcrud.Service.OsintService;
+import com.example.osintcrud.Service.Patterns.interfaces.Pattern;
 import com.example.osintcrud.Service.SearchService;
 import com.example.osintcrud.dto.*;
 import jakarta.validation.Valid;
@@ -13,11 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 
+
 @RestController
 public class Controller {
+
     @GetMapping
     public ResponseEntity<UserResponseDTO> getUser(@Valid @RequestBody UserRequestDTO userRequestDTO){
-        return ;
+
     }
 
 
