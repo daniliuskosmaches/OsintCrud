@@ -1,11 +1,10 @@
 package com.example.osintcrud.Entity;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-@Entity
+@jakarta.persistence.Entity
 
-public class UserEntity {
+public class Entity {
 
 
     @Id

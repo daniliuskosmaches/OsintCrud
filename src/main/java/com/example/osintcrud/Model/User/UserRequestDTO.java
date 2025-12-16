@@ -1,12 +1,16 @@
 package com.example.osintcrud.Model.User;
 
-public class UserRequestDTO {
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
-    private String phone;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
+@AllArgsConstructor
+@Getter
+@Setter
+public class UserRequestDTO {
+ private  Long id;
+ private String fullName;
+ private String email;
 
 
 
