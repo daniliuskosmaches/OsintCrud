@@ -1,5 +1,6 @@
 package com.example.osintcrud.Service;
 
+import com.example.osintcrud.Model.User.UserRequestDTO;
 import com.example.osintcrud.Service.Patterns.interfaces.Pattern;
 
 import java.util.List;
@@ -11,8 +12,8 @@ public class OsintService {
         this.patterns = patterns;
 
     }
-    public String identifyType(String input) {
-        if (input == null || input.isEmpty()) {
+    public String identifyType(UserRequestDTO userRequestDTO) {
+        if (userRequestDTO == null) {
             return "UNKNOWN";
         }
 
@@ -20,7 +21,7 @@ public class OsintService {
         for (Pattern pattern : patterns) {
 
 
-            if (pattern.matches(input)) {
+            if (pattern.matches(userRequestDTO)) {
                 return pattern.getIdentifiedType();
             }
         }

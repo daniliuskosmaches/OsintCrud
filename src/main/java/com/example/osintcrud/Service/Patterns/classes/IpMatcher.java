@@ -1,5 +1,6 @@
 package com.example.osintcrud.Service.Patterns.classes;
 
+import com.example.osintcrud.Model.User.UserRequestDTO;
 import com.example.osintcrud.Service.Patterns.interfaces.IpPattern;
 
 public class IpMatcher implements IpPattern {
@@ -15,11 +16,11 @@ public class IpMatcher implements IpPattern {
     }
 
     @Override
-    public boolean matches(String input) {
-        if (input == null || input.isEmpty()) {
+    public boolean matches(UserRequestDTO userRequestDTO) {
+        if (userRequestDTO == null) {
             return false;
         }
 
-        return IPV4.matches(input);
+        return IPV4.matches(String.valueOf(userRequestDTO.getIp()));
     }
 }

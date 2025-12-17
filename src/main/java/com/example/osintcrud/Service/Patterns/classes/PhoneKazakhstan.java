@@ -1,5 +1,6 @@
 package com.example.osintcrud.Service.Patterns.classes;
 
+import com.example.osintcrud.Model.User.UserRequestDTO;
 import com.example.osintcrud.Service.Patterns.interfaces.PhonePattern;
 
 import java.util.regex.Pattern;
@@ -19,12 +20,12 @@ public class PhoneKazakhstan implements PhonePattern {
     }
 
     @Override
-    public boolean matches(String input) {
-        if (input == null ) {
+    public boolean matches(UserRequestDTO userRequestDTO) {
+        if (userRequestDTO == null ) {
             return false;
         }
 
-        return PHONE_PATTERN.matcher(input).matches();
+        return PHONE_PATTERN.matcher((CharSequence) userRequestDTO).matches();
     }
 
 }

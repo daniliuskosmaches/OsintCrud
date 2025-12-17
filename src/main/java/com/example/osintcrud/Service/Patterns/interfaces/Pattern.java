@@ -1,7 +1,9 @@
 package com.example.osintcrud.Service.Patterns.interfaces;
 
+import com.example.osintcrud.Model.User.UserRequestDTO;
+
 public interface Pattern {
-    boolean matches(String input);
+    boolean matches(UserRequestDTO userRequestDTO);
     String getIdentifiedType();
 
 

@@ -1,17 +1,15 @@
 package com.example.osintcrud.Model.User;
 
 
-import lombok.AllArgsConstructor;
+import lombok.Data;
 
-// DTO для ответа клиенту
-@AllArgsConstructor
-@lombok.Data
+@Data
 
 public class UserResponseDTO {
 
 
     // Поля, которые мы разрешаем передавать клиенту
-    private final Long id;
+    private final Long ip;
     private final String fullName;
     private final String email;
 
