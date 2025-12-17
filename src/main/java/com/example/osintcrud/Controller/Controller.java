@@ -30,7 +30,7 @@ public class Controller {
 
                     UserResponseDTO response = new UserResponseDTO(
                             userRequestDTO.getIp(),
-                            userRequestDTO.getFullName(),
+                            userRequestDTO.getPhone(),
                             userRequestDTO.getEmail()
 
                     );

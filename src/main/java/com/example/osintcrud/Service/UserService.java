@@ -23,7 +23,7 @@ public class UserService {
         }
       switch (type) {
             case "IP" -> userRepository.findByIp(Long.parseLong(String.valueOf(userRequestDTO.getIp())));
-            case "FullName" -> userRepository.findByFullName(userRequestDTO.getFullName());
+          case "PHONE" -> userRepository.findByPhone(Long.parseLong(String.valueOf(userRequestDTO.getPhone())));
             case "Email" -> userRepository.findByEmail(userRequestDTO.getEmail());
             default -> Optional.empty();
 

@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class UserRequestDTO {
  private  Long ip;
- private String fullName;
+ private Long phone;
  private String email;
 
 
