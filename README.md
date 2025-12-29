@@ -158,23 +158,10 @@ db.password=
 Замените com.yourpackage.Main на реальный главный класс с полным именем.
 
 Примеры использования
----------------------
-CLI (если реализовано):
+---------------------------
+у проекта нету как такого Ui но можете просто подключить его по апи 
+задеплоить его на сервер и подключить либо к локалхосту либо 
 
-- java -jar osintcrud.jar search --q "ключевое слово"
-- java -jar osintcrud.jar create --name "Пример" --value "Данные"
-
-Использование из кода (пример):
-
-```java
-// Пример использования (адаптируйте под свои пакеты)
-Config config = Config.fromProperties("config.properties");
-DbClient client = new DbClient(config);
-List<Record> results = client.search("ключевое слово");
-client.create(new Record("name", "value"));
-client.update(1, updatedRecord);
-client.delete(1);
-```
 
 Примечания
 ---------
